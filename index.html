@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Bookings & Online Check-in | Emirates Group Roblox</title>
+  <meta name="description" content="Book flights and request online check-in for Emirates Group Roblox."/>
+  <link rel="icon" href="https://emiratesgrouproblox.link/images/logo.png"/>
+  <link rel="stylesheet" href="./assets/css/styles.css"/>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="./index.html" aria-label="Home">
+          <img data-brand-logo src="https://emiratesgrouproblox.link/images/logo.png" alt="Emirates Group Roblox"/>
+          <div class="title">
+            <b><span data-brand-name>Emirates Group Roblox</span></b>
+            <span data-brand-sub>Bookings & Online Check-in</span>
+          </div>
+        </a>
+
+        <div class="controls">
+          <a class="btn" href="https://flights.emiratesgrouproblox.link" target="_blank" rel="noreferrer">Flight Board</a>
+          <a class="btn" href="https://ekportal.emiratesgrouproblox.link" target="_blank" rel="noreferrer">Staff Portal</a>
+          <a class="btn" href="https://occ.emiratesgrouproblox.link" target="_blank" rel="noreferrer">OCC Portal</a>
+          <button class="pill" type="button" data-theme-toggle aria-label="Toggle theme">
+            <span class="dot"></span>
+            <span data-theme-label>Light</span>
+          </button>
+        </div>
+      </div>
+      <div class="spacer"></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section style="padding:18px 0 26px;">
+      <div class="kicker">Passenger Portal</div>
+      <h1>Bookings and online check-in</h1>
+      <div class="sub">Sign in, book a flight, and request online check-in when available.</div>
+
+      <div class="spacer"></div>
+
+      <div class="row">
+        <div class="card">
+          <div class="panel">
+            <div class="kicker">Account</div>
+
+            <div class="spacer"></div>
+
+            <div data-unauthed>
+              <div class="notice">
+                You are not signed in. Create an account or sign in to manage bookings.
+              </div>
+
+              <div class="spacer"></div>
+
+              <div class="row">
+                <form id="loginForm" class="card" style="box-shadow:none;">
+                  <div class="panel">
+                    <b>Sign in</b>
+                    <div class="spacer"></div>
+                    <div class="field">
+                      <label>Email</label>
+                      <input id="loginEmail" class="input" type="email" required placeholder="name@example.com"/>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="field">
+                      <label>Password</label>
+                      <input id="loginPassword" class="input" type="password" required placeholder="Your password"/>
+                    </div>
+                    <div class="spacer"></div>
+                    <button id="loginBtn" class="btn primary" type="submit">Sign in</button>
+                  </div>
+                </form>
+
+                <form id="signupForm" class="card" style="box-shadow:none;">
+                  <div class="panel">
+                    <b>Create account</b>
+                    <div class="spacer"></div>
+                    <div class="field">
+                      <label>Email</label>
+                      <input id="signupEmail" class="input" type="email" required placeholder="name@example.com"/>
+                    </div>
+                    <div class="spacer"></div>
+                    <div class="field">
+                      <label>Password</label>
+                      <input id="signupPassword" class="input" type="password" required placeholder="Create a password"/>
+                    </div>
+                    <div class="spacer"></div>
+                    <button id="signupBtn" class="btn" type="submit">Create account</button>
+                    <div style="margin-top:10px; color:var(--muted); font-size:12px; line-height:1.5;">
+                      If email confirmation is enabled in Supabase Auth, you may need to verify your email before signing in.
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div data-authed style="display:none;">
+              <div class="notice">
+                Signed in as <b id="who">—</b>
+              </div>
+              <div class="spacer"></div>
+              <button id="signoutBtn" class="btn">Sign out</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="panel">
+            <div class="kicker">Passenger alerts</div>
+            <div class="sub">Updates from the airline and operations team.</div>
+            <div class="spacer"></div>
+            <div id="alertsBox">
+              <div class="notice">Loading alerts…</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="card">
+        <div class="panel">
+          <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+            <div>
+              <div class="kicker">Find a flight</div>
+              <div class="sub">Search the schedule and book a seat.</div>
+            </div>
+            <button id="refreshFlights" class="btn primary" type="button">Refresh</button>
+          </div>
+
+          <div class="spacer"></div>
+
+          <div class="row">
+            <div class="field">
+              <label>Date</label>
+              <input id="flt_date" class="input" type="date"/>
+            </div>
+            <div class="field">
+              <label>Search</label>
+              <input id="flt_q" class="input" placeholder="Flight number, route, status…"/>
+            </div>
+          </div>
+
+          <div class="spacer"></div>
+
+          <div class="row">
+            <div class="field">
+              <label>From</label>
+              <input id="flt_origin" class="input" placeholder="DXB" maxlength="3"/>
+            </div>
+            <div class="field">
+              <label>To</label>
+              <input id="flt_dest" class="input" placeholder="LHR" maxlength="3"/>
+            </div>
+          </div>
+
+          <div class="spacer"></div>
+
+          <div id="flightsBox">
+            <div class="notice">Loading flights…</div>
+          </div>
+
+          <div class="spacer"></div>
+          <div class="notice">
+            Booking is available after you sign in. This portal uses your Supabase account to secure your bookings.
+          </div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="card">
+        <div class="panel">
+          <div class="kicker">My bookings</div>
+          <div class="sub">Request online check-in and view your boarding pass after approval.</div>
+          <div class="spacer"></div>
+          <div id="bookingsBox">
+            <div class="notice">Loading bookings…</div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center;">
+          <div>© <span id="year"></span> Emirates Group Roblox. Owned & operated by The Tyler Nicholas Group.</div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="https://tylernicholasgroup.com" target="_blank" rel="noreferrer">Tyler Nicholas Group</a>
+            <a href="https://emiratesgrouproblox.link" target="_blank" rel="noreferrer">Main Site</a>
+            <a href="https://flights.emiratesgrouproblox.link" target="_blank" rel="noreferrer">Flight Board</a>
+          </div>
+        </div>
+        <div style="margin-top:10px;">
+          <small>Disclaimer: Emirates Group Roblox is an independent virtual aviation organisation and is not affiliated with any real-world airline or Emirates Group entity.</small>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <div id="toast" style="position:fixed; left:50%; bottom:22px; transform:translateX(-50%); background:rgba(0,0,0,.70); color:#fff; padding:10px 12px; border-radius:999px; font-size:13px; opacity:0; transition:opacity .2s; max-width:min(720px, calc(100% - 20px)); text-align:center; z-index:60;"></div>
+
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="box" role="dialog" aria-modal="true" aria-label="Boarding pass">
+      <div class="head">
+        <b>Boarding pass</b>
+        <button class="btn" type="button" data-close>Close</button>
+      </div>
+      <div class="body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./assets/js/config.js"></script>
+  <script src="./assets/js/theme.js"></script>
+  <script src="./assets/js/utils.js"></script>
+  <script src="./assets/js/auth.js"></script>
+  <script src="./assets/js/app.js"></script>
+</body>
+</html>
